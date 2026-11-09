@@ -1,0 +1,77 @@
+== 1. All vehicles, 1 s ==
+Split-half check of probe indicators (Algorithm A.1)
+  observation period 13 weeks; J = 20 partitions; divisor 4; few-vehicle rule F; Sigma_U diagonal; lambda_req 0.90; list size 5 of 50 units
+  volume summary n-bar (working-weighted harmonic mean, units with >= 10 veh.-equiv.): 202.3
+  split-half reliability, Eq. (4) and observation period needed:
+    MSP  lambda 0.962   k = 8   n_req = 72   weeks needed = 4.6   flagged units 0.0%
+    VSD  lambda 0.970   k = 6   n_req = 57   weeks needed = 3.7   flagged units 0.0%
+    ASD  lambda 0.959   k = 9   n_req = 77   weeks needed = 4.9   flagged units 0.0%
+    HDR  lambda 0.796   k = 52   n_req = 466   weeks needed = 29.9   flagged units 0.0%
+  predicted coefficient ratio: MSP 2.877 (coefficient within 2 SE of zero), VSD 1.012 (coefficient within 2 SE of zero), ASD 0.746, HDR 0.774
+  expected list overlap, Eq. (5): risk score 0.880, HDR 0.844, HDC 0.905, EHC 0.880
+  expected list overlap within routes:
+           units  list size  risk score   HDR   HDC   EHC
+    route                                                
+    A         28          3       0.883 0.874 0.921 0.906
+    B         22          2       0.878 0.781 0.799 0.808
+  smaller half's share of a unit's indicator weight, median over partitions: 0.451 to 0.486
+  note: vehicle identifiers must stay the same over the observation period; splitting passes, trips or daily identifiers misses the error shared by the passes of a vehicle.
+  note: the check registers sampling error only; distortions shared by all probes of a unit (sampling interval, probe exposure behind counts, fleet mix) need the separate checks of step 9.
+  note: Eq. (5) treats the errors of units as independent; HDC list predictions can be optimistic.
+
+== 2. A quarter of the vehicles, 1 s ==
+Split-half check of probe indicators (Algorithm A.1)
+  observation period 13 weeks; J = 20 partitions; divisor 4; few-vehicle rule F; Sigma_U diagonal; lambda_req 0.90; list size 5 of 50 units
+  volume summary n-bar (working-weighted harmonic mean, units with >= 10 veh.-equiv.): 46.9
+  split-half reliability, Eq. (4) and observation period needed:
+    MSP  lambda 0.860   k = 8   n_req = 69   weeks needed = 19.0   flagged units 0.0%
+    VSD  lambda 0.879   k = 6   n_req = 58   weeks needed = 16.2   flagged units 0.0%
+    ASD  lambda 0.841   k = 9   n_req = 80   weeks needed = 22.2   flagged units 0.0%
+    HDR  lambda 0.371   k = 79   n_req = 715   weeks needed = 198.0   flagged units 0.0%
+  predicted coefficient ratio: MSP -0.303 (coefficient within 2 SE of zero), VSD 0.816, ASD 0.239, HDR 0.259
+  expected list overlap, Eq. (5): risk score 0.776, HDR 0.679, HDC 0.779, EHC 0.746
+  expected list overlap within routes:
+           units  list size  risk score   HDR   HDC   EHC
+    route                                                
+    A         28          3       0.780 0.731 0.809 0.805
+    B         22          2       0.772 0.596 0.706 0.590
+  smaller half's share of a unit's indicator weight, median over partitions: 0.375 to 0.475
+  note: vehicle identifiers must stay the same over the observation period; splitting passes, trips or daily identifiers misses the error shared by the passes of a vehicle.
+  note: the check registers sampling error only; distortions shared by all probes of a unit (sampling interval, probe exposure behind counts, fleet mix) need the separate checks of step 9.
+  note: Eq. (5) treats the errors of units as independent; HDC list predictions can be optimistic.
+  note: some units split their indicator weight unevenly between halves (smallest share 0.37); divisor='size' removes the resulting upward bias of Eq. (2).
+
+== 3. Executed check, retained share 0.25, 1 s (mean of 4 draws) ==
+                        split_half_diagonal  split_half_full  held_out
+quantity     indicator                                                
+list overlap HDC                     0.8329           0.8329       0.8
+             HDR                     0.7224           0.7224      0.55
+reliability  ASD                     0.8455            1.009     1.015
+             HDR                     0.4001            0.609    0.6473
+             MSP                     0.8629           0.8816    0.8767
+             VSD                     0.8896           0.8836    0.9045
+
+== 3. Executed check, retained share 0.25, 2 s (mean of 4 draws) ==
+                        split_half_diagonal  split_half_full  held_out
+quantity     indicator                                                
+list overlap HDC                     0.7633           0.7633       0.4
+             HDR                     0.6406           0.6406      0.25
+reliability  ASD                     0.7981           0.9291      1.57
+             HDR                     0.4274           0.6042    0.2792
+             MSP                     0.8669           0.9003    0.9544
+             VSD                      0.888           0.8738    0.9598
+
+  The full Sigma_U includes the error covariances of indicators computed from the same records; list
+  predictions do not use Sigma_U. Under 2 s, held-out values for acceleration-based indicators include
+  the rescaling that the halves cannot see (step 9).
+
+== 4. Calibration slope at 2 s, 15 validation units ==
+  MSP  gamma1 1.002 (SE 0.002)  identity rejected: True  estimable: True  sigma2_eps 0
+  VSD  gamma1 0.997 (SE 0.002)  identity rejected: True  estimable: True  sigma2_eps 0
+  ASD  gamma1 0.630 (SE 0.051)  identity rejected: True  estimable: True  sigma2_eps 0.00022
+  HDR  gamma1 0.761 (SE 0.149)  identity rejected: True  estimable: True  sigma2_eps 33.9
+  split-half reliability at 2 s: MSP 0.963, VSD 0.969, ASD 0.946, HDR 0.813
+
+== 5. SIMEX for HDR, a quarter of the vehicles (mean over 10 draws) ==
+  split-half reliability 0.309   naive 0.0274   SIMEX 0.0399   all vehicles 0.0314
+
